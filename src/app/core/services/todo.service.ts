@@ -17,10 +17,26 @@ export class TodoService {
   }
 
   addTodo(todo: Todo) {
-    this.todos.next([todo, ...this.todos.value]);
+    const all = [todo, ...this.todos.value];
+    this.todos.next(all);
+    localStorage.setItem('list', JSON.stringify(all));
   }
 
   deleteTodo(id: number) {
-    this.todos.next(this.todos.value.filter((todo) => todo.id !== id));
+    const all = this.todos.value.filter((todo) => todo.id !== id);
+    this.todos.next(all);
+    localStorage.setItem('list', JSON.stringify(all));
+  }
+
+  completeTodo(id: number) {
+    const changed = this.todos.value.find((todo) => todo.id === id);
+    if (changed) {
+      changed.completed = !changed.completed;
+      const all = this.todos.value.filter((todo) => todo.id !== id);
+      all.push(changed);
+      all.sort((a, b) => b.id - a.id);
+      this.todos.next([...all]);
+      localStorage.setItem('list', JSON.stringify(all));
+    }
   }
 }

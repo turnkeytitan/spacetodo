@@ -5,7 +5,7 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('./todo-list/todo-list.component').then(
-        (mod) => mod.TodoListComponent
+        (mod) => mod.TodoListComponent,
       ),
   },
 ];

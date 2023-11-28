@@ -1,1 +1,27 @@
-<p>todo-list works!</p>
+<section class="flex w-full justify-center items-center flex-col gap-1 py-10">
+  <form class="flex gap-8 my-10">
+    <input
+      [(ngModel)]="newTodoTitle"
+      placeholder="New todo title"
+      name="title"
+    />
+    <button
+      (click)="addTodo()"
+      class="p-2 rounded-md dark:text-white bg-white border border-gray-200 hover:bg-gray-100 {{
+        newTodoTitle
+          ? 'dark:bg-cyan-800 dark:border-cyan-800 dark:hover:bg-cyan-800'
+          : 'dark:bg-slate-400 dark:border-slate-400 dark:hover:bg-slate-400'
+      }}"
+      [disabled]="newTodoTitle === ''"
+    >
+      Add Todo
+    </button>
+  </form>
+  <div *ngFor="let todo of todoService.todos$ | async">
+    <app-todo-item
+      [todo]="todo"
+      (delete)="deleteTodo($event)"
+      (complete)="complete($event)"
+    ></app-todo-item>
+  </div>
+</section>
