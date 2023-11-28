@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class TodoListComponent {
   newTodoTitle = '';
+  isComplete = false;
   constructor(public todoService: TodoService) {}
 
   addTodo() {

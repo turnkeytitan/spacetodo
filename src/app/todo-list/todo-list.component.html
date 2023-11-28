@@ -1,5 +1,5 @@
 <section class="flex w-full justify-center items-center flex-col gap-1 py-10">
-  <form class="flex gap-8 my-10">
+  <form class="flex gap-8 my-10 items-baseline">
     <input
       [(ngModel)]="newTodoTitle"
       placeholder="New todo title"
@@ -17,8 +17,18 @@
       Add Todo
     </button>
   </form>
+  <div class="flex items-baseline gap-4 dark:bg-slate-400 rounded-lg p-2">
+    <label for="is-complete">Complete?</label>
+    <input
+      type="checkbox"
+      name="is-complete"
+      id="is-complete"
+      [(ngModel)]="isComplete"
+    />
+  </div>
   <div *ngFor="let todo of todoService.todos$ | async">
     <app-todo-item
+      *ngIf="(isComplete && todo.completed) || !isComplete"
       [todo]="todo"
       (delete)="deleteTodo($event)"
       (complete)="complete($event)"
